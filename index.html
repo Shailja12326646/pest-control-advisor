@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pest Control Advisor - Shailja Kumari</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a7c59; /* Vibrant forest green */
+            --secondary-color: #8ab17d; /* Lively lime green */
+            --accent-color: #f4a261; /* Warm coral orange */
+            --light-gray: #fefae0; /* Creamy off-white */
+            --dark-gray: #2d2d2a; /* Deep charcoal */
+            --text-color: #1f271b; /* Rich dark green-gray */
+            --success-color: #76c893; /* Bright success green */
+            --warning-color: #e9c46a; /* Cheerful yellow */
+            --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 12px;
+            font-size: 2.2rem;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover i {
+            transform: rotate(20deg);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        nav ul li.contact a {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li.contact i {
+            margin-right: 8px;
+            font-size: 1.3rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+        }
+
+        .cta-button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .cta-button:hover {
+            background-color: #e68c45;
+            transform: scale(1.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 50px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(74, 124, 89, 0.3);
+            outline: none;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .advice-wrapper {
+            margin-top: 60px;
+        }
+
+        .advice-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .spinner {
+            display: none;
+            width: 50px;
+            height: 50px;
+            margin: 20px auto;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 30px;
+            background-color: var(--success-color);
+            color: white;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background-color: var(--accent-color);
+        }
+
+        /* Slider Styles */
+        .slider {
+            position: relative;
+            max-width: 900px;
+            margin: 50px auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            padding: 25px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .slide h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background 0.3s;
+        }
+
+        .slider-btn:hover {
+            background: var(--accent-color);
+        }
+
+        .prev {
+            left: 15px;
+        }
+
+        .next {
+            right: 15px;
+        }
+
+        /* Section Styles */
+        .section {
+            display: none;
+            padding: 60px 20px;
+            background-color: white;
+            margin: 40px auto;
+            max-width: 1200px;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+
+        .section p, .section ul {
+            font-size: 1.1rem;
+        }
+
+        .section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .section ul li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .section ul li:before {
+            content: "✔";
+            color: var(--success-color);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 50px 20px;
+            text-align: left;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+        }
+
+        .footer-section p, .footer-section ul {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-info-circle"></i>
+        <span id="notification-message"></span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-bug"></i>
+                Pest Control Advisor
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#home" onclick="showSection('home')">Home</a></li>
+                    <li><a href="#about" onclick="showSection('about')">About</a></li>
+                    <li><a href="#services" onclick="showSection('services')">Services</a></li>
+                    <li><a href="#portfolio" onclick="showSection('portfolio')">Portfolio</a></li>
+                    <li class="contact"><a href="#contact" onclick="showSection('contact')"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Expert Pest Control Solutions</h1>
+            <p>Your friendly chatbot for eco-friendly pest control advice and services!</p>
+            <a href="#pest-form" class="cta-button">Get Started <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- Slider Section -->
+    <div class="slider">
+        <div class="slides" id="slides">
+            <div class="slide">
+                <h3>Neem Oil Spray</h3>
+                <p>Mix neem oil with water and soap for an organic pest repellent.</p>
+            </div>
+            <div class="slide">
+                <h3>Companion Planting</h3>
+                <p>Plant marigolds near crops to deter pests like aphids.</p>
+            </div>
+            <div class="slide">
+                <h3>Diatomaceous Earth</h3>
+                <p>Sprinkle food-grade diatomaceous earth to kill crawling pests.</p>
+            </div>
+        </div>
+        <button class="slider-btn prev" onclick="moveSlide(-1)">❮</button>
+        <button class="slider-btn next" onclick="moveSlide(1)">❯</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="home">
+        <!-- Pest Advice Form -->
+        <div class="card" id="pest-form">
+            <div class="card-header">
+                <h2><i class="fas fa-spider"></i> Pest Control Advisor</h2>
+            </div>
+            <div class="card-body">
+                <form id="pestForm">
+                    <div class="form-group">
+                        <label for="pest">Enter Pest Type</label>
+                        <input type="text" id="pest" class="form-control" placeholder="e.g., ants, termites" required>
+                    </div>
+                    <button type="submit" class="btn">
+                        <i class="fas fa-search"></i> Get Advice
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Advice Section -->
+        <div class="advice-wrapper" id="advice-section">
+            <h2>Your Pest Control Advice</h2>
+            <p>Here’s how to tackle your pest problem:</p>
+            <div class="spinner" id="spinner"></div>
+            <div id="adviceResult" class="advice-card"></div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="section" id="about">
+        <h2>About Pest Control Advisor Chatbot</h2>
+        <p>Our Pest Control Advisor Chatbot is designed to provide comprehensive, eco-friendly pest management solutions. Here’s what it offers:</p>
+        <ul>
+            <li><strong>Pest Identification:</strong> Describe or upload pest pictures for identification (cockroaches, termites, etc.) and learn why they’re a problem.</li>
+            <li><strong>Booking & Scheduling:</strong> Select dates/times, sync with technicians, and receive reminders.</li>
+            <li><strong>Service Recommendations:</strong> Get tailored treatment plans, prevention tips, and advice for stings or bites.</li>
+            <li><strong>Customer Support:</strong> Connect to live agents, access FAQs, and learn about our company.</li>
+            <li><strong>Feedback & Emergency Services:</strong> Share reviews, get help for urgent infestations, and access chat history with login integration.</li>
+        </ul>
+    </div>
+
+    <!-- Services Section -->
+    <div class="section" id="services">
+        <h2>Our Services</h2>
+        <p>We offer a range of pest control services through our chatbot:</p>
+        <ul>
+            <li><strong>Pest Identification:</strong> Upload pictures or describe pests for instant identification and info.</li>
+            <li><strong>Booking Appointments:</strong> Schedule services with real-time technician availability.</li>
+            <li><strong>Treatment Plans:</strong> Recommendations for one-time or recurring services, indoor/outdoor treatments.</li>
+            <li><strong>Prevention Tips:</strong> Practical advice to keep pests away.</li>
+            <li><strong>Emergency Help:</strong> Fast support for urgent infestations like bee swarms or rodents.</li>
+        </ul>
+    </div>
+
+    <!-- Portfolio Section -->
+    <div class="section" id="portfolio">
+        <h2>Portfolio</h2>
+        <p>Meet the creator behind Pest Control Advisor Chatbot:</p>
+        <p><strong>Creator:</strong> Shailja Kumari</p>
+        <p><strong>Message:</strong> "Hi there! I’m passionate about eco-friendly pest solutions and built this chatbot to make pest control easy, accessible, and sustainable for everyone. Let’s keep your home pest-free together!"</p>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="section" id="contact">
+        <h2>Contact Us</h2>
+        <p>Reach out to us for any queries or support:</p>
+        <ul>
+            <li><strong>Email:</strong> <a href="mailto:support@pestcontroladvisor.com">support@pestcontroladvisor.com</a></li>
+            <li><strong>Instagram:</strong> <a href="https://instagram.com/pestcontroladvisor" target="_blank">@pestcontroladvisor</a></li>
+            <li><strong>Telegram:</strong> <a href="https://t.me/pestcontroladvisor" target="_blank">@pestcontroladvisor</a></li>
+        </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Organic Manure</h3>
+                <p>Use composted manure to enrich soil and repel pests naturally.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Best Farming Practices</h3>
+                <ul>
+                    <li>Crop rotation to disrupt pest cycles</li>
+                    <li>Mulching to deter weeds and pests</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Bio Sprays</h3>
+                <p>Try garlic or chili sprays as natural pest deterrents.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: <a href="mailto:support@pestcontroladvisor.com">support@pestcontroladvisor.com</a></p>
+                <p>© 2025 Pest Control Advisor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form Submission Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const pestForm = document.getElementById('pestForm');
+            const spinner = document.getElementById('spinner');
+            const adviceResult = document.getElementById('adviceResult');
+
+            pestForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                spinner.style.display = 'block';
+                adviceResult.innerHTML = '';
+
+                const pest = document.getElementById('pest').value;
+
+                if (!pest) {
+                    showNotification('Please enter a pest type', 'error');
+                    spinner.style.display = 'none';
+                    return;
+                }
+
+                fetch('http://127.0.0.1:5000/get_advice', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pest })
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    spinner.style.display = 'none';
+
+                    if (data.error) {
+                        showNotification(data.error, 'error');
+                        return;
+                    }
+
+                    if (!data.advice || Object.keys(data.advice).length === 0) {
+                        adviceResult.innerHTML = '<p>No advice available for this pest. Try another type.</p>';
+                        return;
+                    }
+
+                    renderPestAdvice(data.advice);
+                    document.getElementById('advice-section').scrollIntoView({ behavior: 'smooth' });
+                })
+                .catch(error => {
+                    spinner.style.display = 'none';
+                    showNotification('Error: ' + error.message, 'error');
+                });
+            });
+
+            function renderPestAdvice(advice) {
+                adviceResult.innerHTML = `
+                    <h3>Pest: ${document.getElementById('pest').value}</h3>
+                    <p><strong>Identification:</strong> ${advice.identification || 'Not specified'}</p>
+                    <h4>Control Methods:</h4>
+                    <ul>
+                        ${advice.methods.map(method => `
+                            <li><strong>${method.name}:</strong> ${method.description}</li>
+                        `).join('')}
+                    </ul>
+                    <p><strong>Prevention:</strong> ${advice.prevention || 'Not specified'}</p>
+                    <p><strong>Safety Precautions:</strong> ${advice.safety || 'Not specified'}</p>
+                `;
+            }
+
+            function showNotification(message, type = 'info') {
+                const notification = document.getElementById('notification');
+                const notificationMessage = document.getElementById('notification-message');
+                
+                notification.className = 'notification ' + type;
+                notificationMessage.textContent = message;
+                
+                notification.classList.add('show');
+                setTimeout(() => notification.classList.remove('show'), 5000);
+            }
+        });
+
+        // Slider Logic
+        let slideIndex = 0;
+        const slides = document.getElementById('slides');
+        const totalSlides = slides.children.length;
+
+        function moveSlide(n) {
+            slideIndex += n;
+            if (slideIndex >= totalSlides) slideIndex = 0;
+            if (slideIndex < 0) slideIndex = totalSlides - 1;
+            slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        setInterval(() => moveSlide(1), 5000);
+
+        // Section Toggle Logic
+        function showSection(sectionId) {
+            document.querySelectorAll('.section, #home').forEach(section => {
+                section.classList.remove('active');
+            });
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                document.getElementById('home').classList.add('active');
+            }
+        }
+
+        // Show home by default
+        document.getElementById('home').classList.add('active');
+    </script>
+</body>
+</html>
