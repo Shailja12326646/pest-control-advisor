@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Use your API Key directly
-GEMINI_API_KEY = "AIzaSyA5mls2d8GpQBNEmtcQxcoVyBst-iUQZNo"
+GEMINI_API_KEY = "AIzaSyCvbSPMaN9Be1rPY-AOIIA8y9WmY9cY-pE"
 
 def get_pest_advice(pest_type):
     api_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"

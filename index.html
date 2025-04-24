@@ -7,73 +7,139 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #4a7c59; /* Vibrant forest green */
-            --secondary-color: #8ab17d; /* Lively lime green */
-            --accent-color: #f4a261; /* Warm coral orange */
-            --light-gray: #fefae0; /* Creamy off-white */
-            --dark-gray: #2d2d2a; /* Deep charcoal */
-            --text-color: #1f271b; /* Rich dark green-gray */
-            --success-color: #76c893; /* Bright success green */
-            --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            --bg-color: #f8faf6; /* Soft creamy white */
+            --sidebar-bg: #3b6b54; /* Muted forest green, complements main chat */
+            --text-color: #1a2f24; /* Rich dark green */
+            --input-bg: #ffffff; /* Pure white */
+            --message-bg-user: #a8e6cf; /* Lively mint green */
+            --message-bg-bot: #e6f0ea; /* Pale green */
+            --border-color: #c5d6cc; /* Light sage */
+            --accent-color: #ff9f1c; /* Vibrant tangerine */
+            --hover-color: #d4f0e2; /* Light mint hover */
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --success-color: #4caf50; /* Bright success green */
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1c2520; /* Dark charcoal green */
+            --sidebar-bg: #2e4a3b; /* Darker green, aligns with chat */
+            --text-color: #e0e6e0; /* Light gray-green */
+            --input-bg: #2e3b34; /* Darker green-gray */
+            --message-bg-user: #6ab68d; /* Darker mint */
+            --message-bg-bot: #2a3b33; /* Dark green-gray */
+            --border-color: #4a5c50; /* Dark sage */
+            --accent-color: #ffbc5b; /* Warm amber */
+            --hover-color: #3e4f45; /* Dark hover green */
+            --success-color: #388e3c; /* Darker success green */
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--light-gray), #e0e6d8);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--bg-color);
+            background-image: url('https://images.unsplash.com/photo-1503614472-8c93ca36cdd5?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-attachment: fixed;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
             overflow: hidden;
+            display: flex;
+            color: var(--text-color);
         }
 
-        .chatbot-container {
-            width: 450px;
-            height: 650px;
-            background: white;
-            border-radius: 25px;
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, var(--sidebar-bg), var(--message-bg-bot)); /* Gradient to match chat header */
+            color: var(--text-color);
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 2px solid var(--border-color);
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
             box-shadow: var(--box-shadow);
-            overflow: hidden;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.3rem;
+            margin: 0;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+        }
+
+        .history-item {
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.15);
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .history-item:hover {
+            background: var(--hover-color);
+            transform: translateX(5px);
+        }
+
+        .history-item span {
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        .chat-container {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            animation: fade-in 0.5s ease;
-        }
-
-        @keyframes fade-in {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-color);
+            border-radius: 20px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
         }
 
         .chat-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
             padding: 20px;
-            text-align: center;
-            font-size: 2rem;
-            font-weight: bold;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--sidebar-bg), var(--accent-color));
+            color: #ffffff;
+        }
+
+        .chat-header h1 {
+            font-size: 1.8rem;
+            margin: 0;
             display: flex;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            border-bottom: 3px solid var(--accent-color);
-        }
-
-        .chat-header i {
-            margin-right: 12px;
-            font-size: 2.2rem;
-            animation: bug-bounce 1.5s infinite;
-        }
-
-        .chat-header span {
             animation: text-glow 2s infinite alternate;
+        }
+
+        .chat-header h1 i {
+            margin-right: 12px;
+            color: var(--success-color);
+            font-size: 2rem;
+            animation: bug-bounce 1.5s infinite;
         }
 
         @keyframes bug-bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
 
         @keyframes text-glow {
@@ -81,58 +147,92 @@
             100% { text-shadow: 0 0 15px var(--accent-color); }
         }
 
+        .chat-header .actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .chat-header button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .chat-header button:hover {
+            color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
         .chat-body {
             flex: 1;
-            padding: 25px;
+            padding: 30px;
             overflow-y: auto;
-            background: #f9f9f9;
+            background: var(--bg-color);
         }
 
         .message {
-            margin: 12px 0;
-            padding: 14px 20px;
-            border-radius: 15px;
+            margin: 20px 0;
+            padding: 18px;
+            border-radius: 12px;
             max-width: 85%;
-            animation: slide-in 0.4s ease;
             position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .message:hover {
+            transform: scale(1.02);
+        }
+
+        .message:hover .delete-btn {
+            display: block;
         }
 
         .user-message {
-            background: var(--accent-color);
-            color: white;
-            align-self: flex-end;
+            background: var(--message-bg-user);
             margin-left: auto;
+            color: var(--text-color);
         }
 
         .bot-message {
-            background: var(--secondary-color);
+            background: var(--message-bg-bot);
+            margin-right: auto;
             color: var(--text-color);
-            align-self: flex-start;
         }
 
-        .bot-message strong {
-            color: var(--primary-color);
-            font-weight: bold;
+        .delete-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 8px;
         }
 
-        @keyframes slide-in {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .delete-btn:hover {
+            color: var(--accent-color);
         }
 
         .typing-indicator {
             display: none;
-            padding: 10px;
+            padding: 12px;
             color: var(--text-color);
         }
 
         .typing-indicator span {
             display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: var(--primary-color);
+            width: 10px;
+            height: 10px;
+            background: var(--accent-color);
             border-radius: 50%;
-            margin: 0 3px;
+            margin: 0 4px;
             animation: bounce 0.6s infinite alternate;
         }
 
@@ -141,84 +241,207 @@
 
         @keyframes bounce {
             from { transform: translateY(0); }
-            to { transform: translateY(-6px); }
+            to { transform: translateY(-8px); }
         }
 
         .chat-input {
             padding: 20px;
-            background: white;
-            border-top: 1px solid #e0e0e0;
+            background: var(--bg-color);
+            border-top: 2px solid var(--border-color);
             display: flex;
             align-items: center;
         }
 
-        .chat-input input {
+        .chat-input form {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .chat-input input[type="text"] {
             flex: 1;
-            padding: 12px;
-            border: 1px solid #e0e0e0;
+            padding: 14px 18px;
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             font-size: 1.1rem;
-            margin-right: 15px;
+            background: var(--input-bg);
+            color: var(--text-color);
             transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .chat-input input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 8px rgba(74, 124, 89, 0.3);
+        .chat-input input[type="text"]:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 6px rgba(255, 159, 28, 0.3);
             outline: none;
         }
 
         .chat-input button {
-            background: var(--primary-color);
+            background: var(--accent-color);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 14px 20px;
             border-radius: 12px;
             cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
+            transition: background 0.2s, transform 0.2s;
         }
 
         .chat-input button:hover {
-            background: var(--secondary-color);
+            background: #e68a00;
             transform: scale(1.1);
         }
 
-        .chat-input button i {
-            animation: plane-fly 1.5s infinite;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
 
-        @keyframes plane-fly {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(5px); }
+        .modal-content {
+            background: var(--input-bg);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            color: var(--text-color);
+            box-shadow: var(--box-shadow);
+            animation: fade-in 0.3s ease;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .close-btn:hover {
+            color: var(--accent-color);
         }
     </style>
 </head>
 <body>
-    <div class="chatbot-container">
-        <div class="chat-header">
-            <i class="fas fa-bug"></i> <span>Pest Control Advisor</span>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Chat History</h2>
+                <button onclick="clearHistory()"><i class="fas fa-trash"></i></button>
+            </div>
+            <div id="historyList"></div>
         </div>
-        <div class="chat-body" id="chatBody">
-            <div class="message bot-message">
-                Hey! Name a pest (e.g., ants) for fast tips!
+        <div class="chat-container">
+            <div class="chat-header">
+                <h1><i class="fas fa-bug"></i> Pest Control Advisor</h1>
+                <div class="actions">
+                    <button onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+                    <button onclick="showInfo()"><i class="fas fa-info-circle"></i></button>
+                </div>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message bot-message">
+                    Hey! Name a pest (e.g., ants) or use voice input for fast tips!
+                </div>
+            </div>
+            <div class="chat-input">
+                <form onsubmit="sendMessage(); return false;">
+                    <input type="text" id="pestInput" placeholder="Type or speak pest name..." required>
+                    <button type="button" id="voiceButton"><i class="fas fa-microphone"></i></button>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
             </div>
         </div>
-        <div class="chat-input">
-            <input type="text" id="pestInput" placeholder="Type pest name..." required>
-            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('infoModal')">×</button>
+            <h2>About Pest Control Advisor</h2>
+            <p>This chatbot provides quick and effective pest control advice for common household pests. Enter a pest name (like ants, cockroaches, or spiders) or use voice input to get tailored control methods and prevention tips.</p>
+            <p><strong>Features:</strong></p>
+            <ul style="list-style-type: disc; padding-left: 20px;">
+                <li>Instant pest control tips</li>
+                <li>Voice input for queries</li>
+                <li>Prevention strategies</li>
+                <li>Chat history tracking</li>
+                <li>Theme switching (light/dark)</li>
+                <li>Delete specific messages</li>
+            </ul>
+            <p>Built by Shailja Kumari</p>
         </div>
     </div>
 
     <script>
         const chatBody = document.getElementById('chatBody');
         const pestInput = document.getElementById('pestInput');
+        const voiceButton = document.getElementById('voiceButton');
+        const historyList = document.getElementById('historyList');
+        let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+        let recognition = null;
 
-        function addMessage(text, isUser = false) {
+        function addMessage(text, isUser = false, id = Date.now()) {
             const message = document.createElement('div');
             message.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
-            message.innerHTML = text;
+            message.dataset.id = id;
+            message.innerHTML = `
+                <span>${text}</span>
+                <button class="delete-btn" onclick="deleteMessage(${id})"><i class="fas fa-trash"></i></button>
+            `;
             chatBody.appendChild(message);
             chatBody.scrollTop = chatBody.scrollHeight;
+
+            if (!chatHistory.some(item => item.id === id)) {
+                chatHistory.push({ id, text, isUser });
+                localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+                updateHistoryList();
+            }
+        }
+
+        function deleteMessage(id) {
+            const message = document.querySelector(`.message[data-id="${id}"]`);
+            if (message) {
+                message.remove();
+                chatHistory = chatHistory.filter(item => item.id !== id);
+                localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+                updateHistoryList();
+            }
+        }
+
+        function clearHistory() {
+            chatHistory = [];
+            localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+            updateHistoryList();
+            chatBody.innerHTML = '<div class="message bot-message">Hey! Name a pest (e.g., ants) or use voice input for fast tips!</div>';
+        }
+
+        function updateHistoryList() {
+            historyList.innerHTML = '';
+            chatHistory.filter(item => item.isUser).forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.innerHTML = `<span>${truncateToSentence(item.text, 8)}</span>`;
+                div.onclick = () => {
+                    chatBody.innerHTML = '';
+                    chatHistory.forEach(h => addMessage(h.text, h.isUser, h.id));
+                };
+                historyList.appendChild(div);
+            });
         }
 
         function showTypingIndicator() {
@@ -237,13 +460,27 @@
             return words.slice(0, maxWords).join(' ') + '.';
         }
 
+        function isPestRelated(input) {
+            const pestKeywords = ['ant', 'cockroach', 'spider', 'mosquito', 'termite', 'bedbug', 'rat', 'mouse', 'fly', 'flea', 'moth', 'wasp', 'bee', 'pest'];
+            return pestKeywords.some(keyword => input.toLowerCase().includes(keyword));
+        }
+
         function sendMessage() {
             const pest = pestInput.value.trim();
             if (!pest) return;
 
-            addMessage(pest, true);
+            const id = Date.now();
+            addMessage(pest, true, id);
             pestInput.value = '';
             const typingIndicator = showTypingIndicator();
+
+            if (!isPestRelated(pest)) {
+                setTimeout(() => {
+                    typingIndicator.remove();
+                    addMessage("Friendly reminder: I'm a pest control chatbot! Please name a pest (e.g., ants, cockroaches).", false, id + 1);
+                }, 800);
+                return;
+            }
 
             setTimeout(() => {
                 fetch('http://127.0.0.1:5000/get_advice', {
@@ -258,14 +495,13 @@
                 .then(data => {
                     typingIndicator.remove();
                     if (data.error) {
-                        addMessage(`Oops! ${data.error}`);
+                        addMessage(`Oops! ${data.error}`, false, id + 1);
                         return;
                     }
                     if (!data.advice || Object.keys(data.advice).length === 0) {
-                        addMessage('No tips found. Try another pest!');
+                        addMessage('No tips found. Try another pest!', false, id + 1);
                         return;
                     }
-                    // Use first control method and full prevention, truncated to complete sentences
                     const firstMethod = data.advice.methods[0];
                     const controlText = `${firstMethod.name}: ${truncateToSentence(firstMethod.description)}`;
                     const preventText = truncateToSentence(data.advice.prevention || 'Not specified');
@@ -276,18 +512,90 @@
                             <li><strong>Prevent:</strong> ${preventText}</li>
                         </ul>
                     `;
-                    addMessage(adviceText);
+                    addMessage(adviceText, false, id + 1);
                 })
                 .catch(error => {
                     typingIndicator.remove();
-                    addMessage(`Error: ${error.message}`);
+                    addMessage(`Error: ${error.message}`, false, id + 1);
                 });
             }, 800);
         }
 
+        function setupVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window)) {
+                alert('Sorry, your browser doesReferences: not support voice recognition.');
+                return;
+            }
+
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = event => {
+                let interimTranscript = '';
+                let finalTranscript = '';
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript;
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
+
+                pestInput.value = finalTranscript || interimTranscript;
+            };
+
+            recognition.onerror = event => {
+                console.error('Speech recognition error:', event.error);
+                voiceButton.style.color = '';
+            };
+
+            recognition.onend = () => {
+                voiceButton.style.color = '';
+            };
+        }
+
+        function toggleVoiceInput() {
+            if (!recognition) setupVoiceRecognition();
+
+            if (voiceButton.style.color === 'red') {
+                recognition.stop();
+                voiceButton.style.color = '';
+            } else {
+                recognition.start();
+                voiceButton.style.color = 'red';
+            }
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme') || 'light';
+            html.setAttribute('data-theme', currentTheme === 'light' ? 'dark' : 'light');
+        }
+
+        function showInfo() {
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
         pestInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
+            if (e.key === 'Enter') {
+                sendMessage();
+                e.preventDefault();
+            }
         });
+
+        voiceButton.addEventListener('click', toggleVoiceInput);
+
+        // Load chat history on page load
+        chatHistory.forEach(item => addMessage(item.text, item.isUser, item.id));
+        updateHistoryList();
     </script>
 </body>
 </html>
